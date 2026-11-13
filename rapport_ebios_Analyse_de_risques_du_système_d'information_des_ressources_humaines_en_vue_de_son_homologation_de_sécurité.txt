@@ -1,0 +1,462 @@
+
+
+---
+
+# RAPPORT D'ANALYSE DE RISQUES EBIOS RM
+
+## Système d'Information des Ressources Humaines (SI RH)
+
+**Objet :** Homologation de sécurité du SI RH
+
+**Date du rapport :** Juin 2025
+
+**Classification :** Confidentiel — Diffusion restreinte
+
+**Destinataires :** Direction Générale, RSSI, DRH, DPO
+
+---
+
+## 1. SYNTHÈSE EXÉCUTIVE
+
+L'analyse EBIOS RM du SI RH révèle un niveau de risque élevé, principalement lié à la concentration de données personnelles et financières sensibles. **Vingt-trois scénarios de risques ont été identifiés**, portés par huit sources de menaces distinctes. Les risques les plus critiques (gravité G4) concernent l'exfiltration de données par des cybercriminels, l'espionnage économique par des concurrents, les attaques par rançongiciel et la divulgation activiste de données salariales. Après application du plan de traitement composé de 21 mesures de réduction, 2 transferts et 2 acceptations, **12 risques résiduels demeurent à surveiller activement**. L'homologation est recommandée sous réserve de la mise en œuvre effective et prioritaire du plan de traitement, notamment la remédiation des écarts critiques de conformité RGPD.
+
+---
+
+## 2. PÉRIMÈTRE DE L'ÉTUDE
+
+### 2.1 Objet et objectifs
+
+| Élément | Description |
+|---|---|
+| **Objet** | Analyse de risques du système d'information des ressources humaines |
+| **Finalité** | Homologation de sécurité du SI RH |
+| **Cadre réglementaire** | RGPD, référentiels de sécurité applicables |
+
+### 2.2 Missions critiques couvertes
+
+- **Gérer la paie** — Mission essentielle au fonctionnement opérationnel de l'organisation, avec des obligations légales de délai et d'exactitude.
+- **Assurer la conformité RGPD** — Obligation réglementaire majeure encadrant le traitement des données personnelles des employés.
+
+### 2.3 Valeurs métier identifiées
+
+Cinq valeurs métier ont été identifiées et évaluées au regard des critères de disponibilité, intégrité, confidentialité et preuve :
+
+| Valeur métier | Criticité maximale |
+|---|---|
+| Gestion des données personnelles des employés | **G4** (confidentialité) |
+| Gestion de la paie | **G4** (disponibilité, intégrité) |
+| Gestion des recrutements | **G3** (confidentialité) |
+| Gestion des congés et absences | **G3** (confidentialité) |
+| Gestion des formations | **G2** (intégrité, confidentialité) |
+
+### 2.4 Écosystème et parties prenantes
+
+L'étude identifie les parties prenantes suivantes dans l'écosystème du SI RH :
+
+- **ADP** — Prestataire externe de gestion de paie (vecteur d'attaque indirect identifié)
+- **DSI** — Direction des systèmes d'information (opérateur technique, vecteur indirect identifié)
+- **Équipe RH** — Utilisateurs métier avec accès privilégiés aux données sensibles
+- **Employés** — Utilisateurs finaux du système (self-service RH)
+
+---
+
+## 3. PRINCIPAUX RISQUES IDENTIFIÉS
+
+### 3.1 Sources de menaces
+
+Huit sources de menaces ont été caractérisées lors de l'atelier 3 :
+
+| Source de menace | Motivation | Niveau de menace |
+|---|---|---|
+| **Cybercriminel financier** | Monétisation des données personnelles et financières | Très élevé |
+| **Groupe de cybercriminels spécialisé (ransomware)** | Chiffrement du SI RH pour rançon | Très élevé |
+| **Concurrent économique** | Obtention d'informations stratégiques (grilles salariales, organigramme) | Élevé |
+| **Hacktiviste** | Divulgation publique des données salariales | Élevé |
+| **Prestataire compromis (ADP/DSI)** | Compromission par négligence ou défaillance | Élevé |
+| **Employé malveillant RH** | Accès frauduleux, manipulation de données | Modéré |
+| **Ancien employé mécontent** | Sabotage, divulgation | Modéré |
+| **Erreur humaine utilisateur** | Compromission involontaire | Modéré |
+
+### 3.2 Cartographie des risques — Scénarios les plus critiques
+
+Les scénarios opérationnels ont été évalués en croisant gravité (G1 à G4) et vraisemblance (V1 à V4). Le tableau ci-dessous présente les risques classés par criticité décroissante :
+
+#### Risques de niveau CRITIQUE (Gravité G4, Vraisemblance ≥ 3)
+
+| # | Scénario | Source de menace | Cible | G | V | Niveau |
+|---|---|---|---|---|---|---|
+| R1 | Exfiltration de données personnelles | Cybercriminel financier | Données personnelles (direct) | G4 | V3 | **Critique** |
+| R2 | Exfiltration de données de paie | Cybercriminel financier | Paie (direct) | G4 | V3 | **Critique** |
+| R3 | Compromission via prestataire ADP — Paie | Prestataire compromis | Paie (via ADP) | G4 | V3 | **Critique** |
+| R4 | Compromission via prestataire ADP — Données | Prestataire compromis | Données personnelles (via ADP) | G4 | V3 | **Critique** |
+| R5 | Chiffrement par rançongiciel — Données | Groupe cybercriminels | Données personnelles (direct) | G4 | V3 | **Critique** |
+| R6 | Chiffrement par rançongiciel — Paie | Groupe cybercriminels | Paie (direct) | G4 | V3 | **Critique** |
+
+#### Risques de niveau ÉLEVÉ (Gravité G4, Vraisemblance ≤ 2 ou Gravité G3, Vraisemblance ≥ 3)
+
+| # | Scénario | Source de menace | Cible | G | V | Niveau |
+|---|---|---|---|---|---|---|
+| R7 | Vol de données de paie | Concurrent économique | Paie (direct) | G4 | V2 | **Élevé** |
+| R8 | Vol de données personnelles | Concurrent économique | Données personnelles (direct) | G4 | V2 | **Élevé** |
+| R9 | Divulgation données salariales | Hacktiviste | Paie (direct) | G4 | V2 | **Élevé** |
+| R10 | Divulgation données personnelles | Hacktiviste | Données personnelles (direct) | G4 | V2 | **Élevé** |
+| R11 | Exfiltration via ADP | Cybercriminel financier | Paie (via ADP) | G4 | V2 | **Élevé** |
+| R12 | Accès frauduleux paie | Employé malveillant RH | Paie (direct) | G3 | V3 | **Élevé** |
+| R13 | Consultation frauduleuse données | Employé malveillant RH | Données personnelles (direct) | G3 | V4 | **Élevé** |
+| R14 | Compromission via DSI | Prestataire compromis | Données personnelles (via DSI) | G3 | V3 | **Élevé** |
+| R15 | Sabotage — Données personnelles | Ancien employé mécontent | Données personnelles (direct) | G3 | V3 | **Élevé** |
+| R16 | Sabotage — Paie | Ancien employé mécontent | Paie (direct) | G3 | V3 | **Élevé** |
+| R17 | Espionnage formations | Concurrent économique | Formations (direct) | G3 | V3 | **Élevé** |
+| R18 | Erreur humaine — Données (impact G3) | Erreur utilisateur | Données personnelles (direct) | G3 | V4 | **Élevé** |
+
+#### Risques de niveau MODÉRÉ à FAIBLE
+
+| # | Scénario | Source de menace | Cible | G | V | Niveau |
+|---|---|---|---|---|---|---|
+| R19 | Manipulation congés | Employé malveillant RH | Congés/absences (direct) | G2 | V4 | Modéré |
+| R20 | Rançongiciel via DSI — Congés | Groupe cybercriminels | Congés (via DSI) | G2 | V3 | Modéré |
+| R21 | Sabotage — Recrutements | Ancien employé mécontent | Recrutements (direct) | G2 | V3 | Modéré |
+| R22 | Erreur humaine — Données (impact G2) | Erreur utilisateur | Données personnelles (direct) | G2 | V4 | Modéré |
+| R23 | Erreur humaine — Paie | Erreur utilisateur | Paie (direct) | G2 | V4 | Modéré |
+
+### 3.3 Cartographie matricielle des risques
+
+```
+              │  V1        V2          V3           V4
+──────────────┼───────────────────────────────────────────
+  G4          │           R7,R8,      R1,R2,R3,
+  (Critique)  │           R9,R10,     R4,R5,R6
+              │           R11
+──────────────┼───────────────────────────────────────────
+  G3          │                       R12,R14,      R13,
+  (Grave)     │                       R15,R16,      R18
+              │                       R17
+──────────────┼───────────────────────────────────────────
+  G2          │                       R20,R21       R19,
+  (Significatif)│                                    R22,R23
+──────────────┼───────────────────────────────────────────
+  G1          │
+  (Mineur)    │
+──────────────┴───────────────────────────────────────────
+```
+
+**Légende :** Zone rouge = risques inacceptables / Zone orange = risques à traiter / Zone jaune = risques à surveiller / Zone verte = risques acceptables
+
+---
+
+## 4. ÉCARTS DE CONFORMITÉ ET ACTIONS PRIORITAIRES
+
+L'atelier 1 a mis en évidence trois écarts significatifs sur le socle de sécurité :
+
+### 4.1 Écart critique
+
+| Référentiel | Écart | Niveau | Action prioritaire | Échéance recommandée |
+|---|---|---|---|---|
+| **RGPD** | Non-conformité au Règlement Général sur la Protection des Données | **CRITIQUE** | Audit RGPD complet, désignation/renforcement du DPO, registre des traitements, AIPD, mise en conformité des processus RH | **Immédiat — T+3 mois** |
+
+> **⚠️ ALERTE :** Cet écart critique constitue un risque juridique et financier majeur (sanctions jusqu'à 4% du CA mondial ou 20 M€). Sa remédiation est un prérequis à l'homologation du SI RH.
+
+### 4.2 Écarts élevés
+
+| Mesure | Écart constaté | Niveau | Action prioritaire | Échéance recommandée |
+|---|---|---|---|---|
+| **Politique de contrôle d'accès** | Revue des accès limitée à une fréquence semestrielle | **ÉLEVÉ** | Passage à une revue trimestrielle des accès, automatisation via solution IAM, implémentation du moindre privilège | **T+6 mois** |
+| **Politique de sauvegarde** | Sauvegardes quotidiennes testées mensuellement — insuffisant face aux menaces ransomware | **ÉLEVÉ** | Évolution vers une stratégie 3-2-1 avec sauvegardes immutables et air gap, tests de restauration hebdomadaires, RPO/RTO formalisés | **T+6 mois** |
+
+### 4.3 Synthèse de la priorisation des écarts
+
+```
+┌─────────────────────────────────┐
+│  IMMÉDIAT (0-3 mois)            │
+│  → Conformité RGPD              │
+├─────────────────────────────────┤
+│  COURT TERME (3-6 mois)         │
+│  → Contrôle d'accès renforcé    │
+│  → Stratégie sauvegarde 3-2-1   │
+├─────────────────────────────────┤
+│  MOYEN TERME (6-12 mois)        │
+│  → Mesures plan de traitement   │
+└─────────────────────────────────┘
+```
+
+---
+
+## 5. PLAN DE TRAITEMENT SYNTHÉTIQUE
+
+### 5.1 Vue d'ensemble des stratégies de traitement
+
+| Stratégie | Nombre de risques | Pourcentage |
+|---|---|---|
+| **Réduire** | 19 | 83% |
+| **Transférer** | 2 | 9% |
+| **Accepter** | 2 | 8% |
+| **Total** | **23** | **100%** |
+
+### 5.2 Mesures de réduction par domaine
+
+Les 19 mesures de réduction ont été regroupées en sept axes cohérents pour faciliter leur pilotage :
+
+#### AXE 1 — Protection des données sensibles (Priorité : CRITIQUE)
+
+| Mesure | Risques couverts | Responsable proposé | Échéance |
+|---|---|---|---|
+| Chiffrement AES-256 des données au repos (base RH et paie) | R1, R2, R5, R6 | RSSI / DSI | T+3 mois |
+| Coffre-fort numérique pour les données de paie | R2, R6 | DSI / DRH | T+6 mois |
+| Anonymisation/pseudonymisation des données RH pour les traitements analytiques | R9, R10 | DPO / DSI | T+6 mois |
+| Classification et marquage des données critiques | R7, R8 | RSSI / DRH | T+3 mois |
+| Solution DLP (Data Loss Prevention) avancée | R1, R7, R8, R22 | RSSI | T+6 mois |
+
+#### AXE 2 — Gestion des identités et des accès (Priorité : CRITIQUE)
+
+| Mesure | Risques couverts | Responsable proposé | Échéance |
+|---|---|---|---|
+| Authentification multi-facteurs (MFA) obligatoire sur l'ensemble du SI RH | R1, R2, R13, R15 | RSSI / DSI | T+3 mois |
+| Principe de moindre privilège et contrôles d'accès granulaires par rôle | R12, R13 | RSSI / DRH | T+3 mois |
+| Workflow de validation à 4 yeux pour toute modification de paie | R12 | DRH | T+3 mois |
+| Revue d'accès trimestrielle (correction écart socle) | R12, R13, R15 | RSSI | T+3 mois |
+| PAM (Privileged Access Management) pour les accès prestataires | R14 | RSSI / DSI | T+6 mois |
+| Processus de départ sécurisé avec révocation immédiate et automatisée des accès | R15, R16 | DRH / DSI | T+3 mois |
+
+#### AXE 3 — Détection et surveillance (Priorité : ÉLEVÉE)
+
+| Mesure | Risques couverts | Responsable proposé | Échéance |
+|---|---|---|---|
+| Déploiement EDR/XDR sur les postes et serveurs RH | R5, R6, R7 | RSSI / DSI | T+6 mois |
+| Mise en place d'un SOC 24/7 (interne ou externalisé) | R1, R2, R7, R8, R9, R10 | RSSI | T+9 mois |
+| WAF avancé avec détection d'intrusion | R1 | DSI | T+6 mois |
+| Journalisation détaillée et audit trail complet | R12, R13, R15, R16 | RSSI / DSI | T+3 mois |
+| Monitoring avancé des accès aux données sensibles et alertes automatiques | R2, R12, R16 | RSSI | T+6 mois |
+| Threat intelligence et surveillance des fuites sur le dark web | R8 | RSSI | T+9 mois |
+| Détection d'anomalies comportementales (UEBA) | R15, R16 | RSSI | T+9 mois |
+
+#### AXE 4 — Résilience et continuité (Priorité : ÉLEVÉE)
+
+| Mesure | Risques couverts | Responsable proposé | Échéance |
+|---|---|---|---|
+| Stratégie de sauvegarde 3-2-1 avec air gap et sauvegardes immutables | R5, R6 | DSI | T+6 mois |
+| Solution anti-ransomware avancée | R5, R6 | RSSI / DSI | T+6 mois |
+| Isolation et segmentation du système de paie (micro-segmentation) | R2, R6 | DSI | T+6 mois |
+| Segmentation réseau entre systèmes DSI et RH | R20 | DSI | T+6 mois |
+| Plan de continuité d'activité (PCA) testé et exercices de récupération mensuels | R5, R6 | RSSI / DSI | T+9 mois |
+| Plan de reprise d'activité dégradée pour les fonctions secondaires | R20 | DSI / DRH | T+9 mois |
+
+#### AXE 5 — Sécurisation de la chaîne prestataires (Priorité : ÉLEVÉE)
+
+| Mesure | Risques couverts | Responsable proposé | Échéance |
+|---|---|---|---|
+| Chiffrement bout-en-bout des échanges avec les prestataires | R3, R11 | DSI | T+6 mois |
+| Surveillance des accès prestataires en temps réel | R3, R4, R14 | RSSI | T+6 mois |
+| VPN dédié avec authentification forte pour les prestataires | R14 | DSI | T+6 mois |
+| Audit sécurité contractuel d'ADP | R3, R4 | RSSI / Juridique | T+3 mois |
+
+#### AXE 6 — Formation et sensibilisation (Priorité : MODÉRÉE)
+
+| Mesure | Risques couverts | Responsable proposé | Échéance |
+|---|---|---|---|
+| Formation anti-phishing trimestrielle | R1, R22, R23 | RSSI / DRH | T+3 mois |
+| Programme de formation cybersécurité renforcé pour tous les utilisateurs RH | R22, R23 | RSSI / DRH | T+6 mois |
+| Formation spécialisée équipe paie | R23 | DRH | T+6 mois |
+| Certification des utilisateurs sur les bonnes pratiques de sécurité | R18, R22 | RSSI | T+9 mois |
+
+#### AXE 7 — Ergonomie et processus sécurisés (Priorité : MODÉRÉE)
+
+| Mesure | Risques couverts | Responsable proposé | Échéance |
+|---|---|---|---|
+| Interface utilisateur repensée avec UX sécurisée (security by design) | R18, R22 | DSI / DRH | T+12 mois |
+| Workflows automatisés avec contrôles intégrés et double validation | R23 | DSI / DRH | T+9 mois |
+| Alertes en temps réel sur les actions à risque | R18 | DSI | T+6 mois |
+
+### 5.3 Mesures de transfert
+
+| Risque | Mesure de transfert | Responsable | Échéance |
+|---|---|---|---|
+| R3 — Prestataire compromis (ADP → Paie) | Révision contractuelle avec clauses cybersécurité renforcées, assurance cyber dédiée, audits réguliers du prestataire | Juridique / RSSI | T+6 mois |
+| R4 — Prestataire compromis (ADP → Données) | Assurance cyber avec couverture prestataires, clauses de responsabilité renforcées, exigence de certification ISO 27001 | Juridique / RSSI | T+6 mois |
+
+### 5.4 Risques acceptés
+
+| Risque | Justification |
+|---|---|
+| R19 — Employé malveillant RH → Congés/absences (G2/V4) | Risque acceptable : la validation hiérarchique existante constitue un contrôle compensatoire suffisant au regard de la gravité limitée |
+| R21 — Ancien employé mécontent → Recrutements (G2/V3) | Risque acceptable : les contrôles de surveillance existants et le faible impact métier justifient l'acceptation |
+
+### 5.5 Mesures complémentaires de gouvernance
+
+En complément des mesures techniques et organisationnelles ci-dessus, les actions transverses suivantes sont recommandées :
+
+- **Plan de communication de crise** en cas de divulgation de données salariales (couverture des scénarios hacktivistes)
+- **Politique transparente et proactive sur l'égalité salariale** (réduction de la motivation des hacktivistes)
+- **Tests d'intrusion trimestriels** sur l'ensemble du périmètre SI RH
+
+### 5.6 Estimation budgétaire indicative et planning
+
+```
+Phase 1 — URGENTE (T+0 à T+3 mois)
+├── Conformité RGPD (audit, registre, AIPD)
+├── MFA obligatoire
+├── Moindre privilège + revue des accès
+├── Workflow 4 yeux pour la paie
+├── Processus de départ sécurisé
+├── Journalisation et audit trail
+├── Chiffrement des données au repos
+├── Classification des données
+├── Audit sécurité ADP
+└── Formation anti-phishing
+
+Phase 2 — COURT TERME (T+3 à T+6 mois)
+├── Solution DLP
+├── PAM prestataires
+├── EDR/XDR
+├── Sauvegarde 3-2-1 / air gap
+├── Micro-segmentation réseau
+├── Chiffrement bout-en-bout prestataires
+├── Coffre-fort numérique paie
+├── Anonymisation/pseudonymisation
+├── Formation cybersécurité renforcée
+└── Clauses contractuelles prestataires
+
+Phase 3 — MOYEN TERME (T+6 à T+12 mois)
+├── SOC 24/7
+├── Threat intelligence / dark web
+├── UEBA (détection comportementale)
+├── PCA/PRA testés
+├── Interface UX sécurisée
+├── Workflows automatisés
+└── Certification utilisateurs
+```
+
+---
+
+## 6. RISQUES RÉSIDUELS ET RECOMMANDATIONS
+
+### 6.1 Cartographie des risques résiduels après traitement
+
+Après application complète du plan de traitement, les risques résiduels se répartissent comme suit :
+
+| Statut | Nombre | Risques concernés |
+|---|---|---|
+| **À surveiller** | 12 | R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11 (via le traitement de R3), R14 (Hacktiviste x2) |
+| **Acceptable** | 11 | R12, R13, R14 (DSI), R15, R16, R17, R19, R20, R21, R22, R23, R18 |
+
+#### Détail des risques résiduels « À surveiller »
+
+| Risque résiduel | Source de menace | Cible | Justification de la surveillance |
+|---|---|---|---|
+| Exfiltration données personnelles | Cybercriminel financier | Données personnelles | Menace persistante et évolutive malgré les protections déployées |
+| Exfiltration données de paie | Cybercriminel financier | Paie | Haute valeur monétaire des données ; techniques d'attaque en évolution constante |
+| Compromission via ADP — Paie | Cybercriminel / Prestataire | Paie (via ADP) | Dépendance à un tiers ; efficacité des mesures contractuelles à valider dans le temps |
+| Compromission via ADP — Données | Prestataire compromis | Données personnelles (via ADP) | Risque résiduel inhérent à l'externalisation malgré le transfert contractuel |
+| Ransomware — Données personnelles | Groupe cybercriminels | Données personnelles | Menace en croissance exponentielle ; sophistication des attaques |
+| Ransomware — Paie | Groupe cybercriminels | Paie | Impact potentiel catastrophique sur la continuité de la mission paie |
+| Vol données paie (concurrent) | Concurrent économique | Paie | Motivation élevée ; difficulté de détection des attaques ciblées APT |
+| Vol données personnelles (concurrent) | Concurrent économique | Données personnelles | Espionnage industriel ; menace persistante |
+| Divulgation salariale (hacktiviste) — Paie | Hacktiviste | Paie | Contexte social sensible ; motivation indépendante des mesures techniques |
+| Divulgation salariale (hacktiviste) — Données | Hacktiviste | Données personnelles | Risque réputationnel majeur ; motivation idéologique persistante |
+
+### 6.2 Cartographie matricielle des risques résiduels
+
+```
+              │  V1          V2          V3          V4
+──────────────┼──────────────────────────────────────────
+  G4          │
+  (Critique)  │              ──          ──
+──────────────┼──────────────────────────────────────────
+  G3          │
+  (Grave)     │              ──          ──
+──────────────┼──────────────────────────────────────────
+  G2          │                          ●●          ●●●
+  (Significatif)│
+──────────────┼──────────────────────────────────────────
+  G1          │              ●●●●●       ●●●●●
+  (Mineur)    │
+──────────────┴──────────────────────────────────────────
+
+Légende : ● = risque acceptable  /  ── = risque à surveiller
+```
+
+> **Note :** Les risques à surveiller ont vu leur vraisemblance et/ou leur gravité réduite grâce aux mesures de traitement, mais ne sont pas descendus en zone d'acceptabilité totale en raison de la nature persistante et évolutive des menaces.
+
+### 6.3 Indicateurs de surveillance recommandés
+
+Pour les 12 risques résiduels « à surveiller », les indicateurs de pilotage suivants sont recommandés :
+
+| Domaine | Indicateur | Fréquence | Seuil d'alerte |
+|---|---|---|---|
+| **Cybercriminalité** | Nombre de tentatives d'intrusion détectées | Hebdomadaire | Augmentation > 50% sur un mois |
+| **Cybercriminalité** | Nombre d'incidents de sécurité avérés | Mensuel | Tout incident G3+ |
+| **Ransomware** | Temps de restauration testé (RTO effectif) | Mensuel | RTO > RTO cible |
+| **Ransomware** | Couverture des sauvegardes immutables | Mensuel | < 100% des données critiques |
+| **Prestataires** | Score d'audit sécurité des prestataires | Semestriel | Score < 70/100 |
+| **Prestataires** | Nombre d'accès non autorisés prestataires | Mensuel | Tout accès non autorisé |
+| **Espionnage** | Alertes DLP (tentatives d'exfiltration) | Hebdomadaire | Toute alerte haute |
+| **Espionnage** | Résultats des tests d'intrusion | Trimestriel | Toute vulnérabilité critique |
+| **Hacktivisme** | Mentions de l'organisation sur dark web / forums | Mensuel | Toute mention de données RH |
+| **Hacktivisme** | Veille sur les revendications activistes sectorielles | Mensuel | Ciblage direct identifié |
+| **Transverse** | Taux de conformité du plan de traitement | Mensuel | Retard > 1 mois sur une action critique |
+| **Transverse** | Taux de réussite aux campagnes de phishing simulé | Trimestriel | Taux de clic > 10% |
+
+### 6.4 Recommandations stratégiques
+
+#### Recommandations prioritaires (conditionnant l'homologation)
+
+1. **Remédier en urgence à l'écart RGPD critique** — La non-conformité au RGPD expose l'organisation à des sanctions financières majeures et constitue un facteur aggravant pour tous les scénarios de risques impliquant des données personnelles. Cette remédiation est un prérequis absolu à l'homologation.
+
+2. **Déployer le MFA et le principe de moindre privilège sous 3 mois** — Ces deux mesures couvrent transversalement le plus grand nombre de scénarios de risques critiques et constituent le socle minimal de sécurité des accès.
+
+3. **Sécuriser la relation avec le prestataire ADP** — Quatre scénarios de risques critiques transitent par ce vecteur. L'audit de sécurité, la révision contractuelle et le chiffrement bout-en-bout sont prioritaires.
+
+#### Recommandations à moyen terme
+
+4. **Investir dans les capacités de détection (SOC, EDR/XDR, UEBA)** — La nature évolutive des menaces cybercriminelles et la persistance de 12 risques résiduels à surveiller imposent des capacités de détection et de réaction avancées.
+
+5. **Intégrer la sécurité dans la conception des évolutions du SI RH** — L'approche « security by design » appliquée aux interfaces et aux workflows réduira structurellement les risques liés à l'erreur humaine.
+
+6. **Tester régulièrement la résilience** — Les exercices de crise, les tests de restauration et les tests d'intrusion doivent être planifiés et leurs résultats intégrés dans l'amélioration continue.
+
+#### Recommandations de gouvernance
+
+7. **Instituer un comité de suivi des risques SI RH** — Réunion trimestrielle associant RSSI, DRH, DPO et DSI pour le pilotage du plan de traitement et la revue des indicateurs de surveillance.
+
+8. **Planifier la revue de l'analyse de risques** — Conformément à EBIOS RM, l'étude doit être réactualisée annuellement ou à chaque évolution majeure du SI RH (changement de prestataire, migration technique, évolution réglementaire).
+
+9. **Formaliser la stratégie d'homologation** — Définir la durée d'homologation recommandée (2 ans maximum compte tenu du niveau de risque résiduel) avec clause de revue anticipée si un risque « à surveiller » se matérialise.
+
+---
+
+## 7. AVIS SUR L'HOMOLOGATION
+
+### Position de l'analyste
+
+Au regard de l'ensemble des éléments de cette étude EBIOS RM :
+
+**L'homologation du SI RH est recommandée sous conditions**, pour une durée maximale de **2 ans**, sous réserve :
+
+| Condition | Type | Échéance |
+|---|---|---|
+| Mise en conformité RGPD (audit, registre, AIPD) | **Suspensive** | T+3 mois |
+| Déploiement MFA sur l'ensemble du SI RH | **Suspensive** | T+3 mois |
+| Implémentation du moindre privilège et workflow 4 yeux | **Suspensive** | T+3 mois |
+| Audit sécurité du prestataire ADP | **Suspensive** | T+3 mois |
+| Mise en place de la stratégie de sauvegarde 3-2-1 | Résolutoire | T+6 mois |
+| Déploiement EDR/XDR et DLP | Résolutoire | T+6 mois |
+| Mise en place du SOC | Résolutoire | T+9 mois |
+| Achèvement complet du plan de traitement Phase 3 | Résolutoire | T+12 mois |
+
+> Les conditions **suspensives** doivent être satisfaites avant la signature de la décision d'homologation. Les conditions **résolutoires** doivent être réalisées dans les délais impartis sous peine de remise en cause de l'homologation.
+
+### Facteurs de réexamen anticipé
+
+L'homologation devra être réexaminée avant son terme en cas de :
+- Incident de sécurité majeur (G3 ou G4) sur le SI RH
+- Changement de prestataire de paie
+- Migration technique majeure du SI RH
+- Évolution réglementaire significative
+- Non-respect des échéances du plan de traitement
+
+---
+
+**Rapport établi conformément à la méthode EBIOS Risk Manager (ANSSI, 2018)**
+
+*Fin du rapport*
+
+---

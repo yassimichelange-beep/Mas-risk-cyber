@@ -1,0 +1,221 @@
+# RAPPORT D'ANALYSE DES RISQUES — ISO 27005
+
+**Objet :** Système d'Information des Ressources Humaines (SI RH)
+**Référentiel :** ISO/IEC 27005:2022 — Gestion des risques liés à la sécurité de l'information
+**Date du rapport :** Juin 2025
+**Classification :** Confidentiel — Diffusion restreinte
+**Version :** 1.0 — Rapport final
+
+---
+
+## 1. Résumé exécutif
+
+La présente analyse de risques a été conduite conformément à la norme ISO 27005 sur le périmètre du Système d'Information des Ressources Humaines (SI RH) de l'organisation. Ce système, qui traite des données personnelles sensibles (identité, rémunération, coordonnées bancaires, données de santé) de l'ensemble des collaborateurs, constitue un actif stratégique dont la compromission engendrerait des impacts juridiques, financiers et réputationnels majeurs.
+
+**Synthèse des résultats :**
+
+L'analyse a porté sur **7 actifs** critiques et a permis d'identifier **12 scénarios de risque**. Après estimation, la répartition est la suivante :
+
+| Niveau de risque | Nombre | Proportion |
+|---|---|---|
+| **Critique (20-25)** | 1 | 8 % |
+| **Élevé (15-19)** | 0 | 0 % |
+| **Modéré (10-14)** | 4 | 33 % |
+| **Faible (<10)** | 7 | 59 % |
+
+**Un risque critique** a été identifié, lié à l'exfiltration massive de données personnelles des employés suite à une compromission de la base de données RH. Ce risque nécessite un traitement prioritaire et immédiat.
+
+**Douze mesures de traitement** ont été définies. Après application de ces mesures, l'ensemble des **12 risques résiduels** ont été évalués et jugés acceptables par la direction, sous réserve de la mise en œuvre effective du plan de traitement dans les délais impartis.
+
+**Recommandation principale :** La direction est invitée à valider formellement le plan de traitement et à allouer les ressources nécessaires à sa mise en œuvre, en priorisant le traitement du risque critique identifié dans un délai n'excédant pas trois mois.
+
+---
+
+## 2. Périmètre et contexte
+
+### 2.1 Périmètre de l'analyse
+
+L'analyse couvre l'ensemble du SI RH, incluant :
+
+- **Applications métier RH :** SIRH principal (gestion administrative, gestion des temps, gestion des talents), module de paie, portail collaborateur en libre-service ;
+- **Bases de données RH :** base de données centralisée contenant les données personnelles, contractuelles, de rémunération et les données sensibles (arrêts maladie, sanctions disciplinaires) ;
+- **Infrastructures support :** serveurs d'hébergement (physiques ou cloud), réseau dédié, systèmes de sauvegarde, environnements de test ;
+- **Interfaces et flux tiers :** connexions avec les établissements bancaires (virements de paie), organismes sociaux (DSN — Déclaration Sociale Nominative), mutuelles, caisses de retraite ;
+- **Processus organisationnels :** processus de gestion de la paie, administration du personnel, recrutement, gestion des accès aux données RH.
+
+### 2.2 Contexte réglementaire et normatif
+
+Le SI RH est soumis à des exigences réglementaires strictes, notamment :
+
+- **RGPD (Règlement Général sur la Protection des Données)** : traitement de données personnelles et données sensibles (article 9) ;
+- **Code du travail** : obligations de confidentialité des données salariales ;
+- **Obligations légales de conservation** : bulletins de paie (5 ans minimum), données contractuelles (durée variable) ;
+- **ISO 27001/27002** : cadre de référence pour les mesures de sécurité de l'information.
+
+### 2.3 Parties prenantes
+
+Les parties prenantes incluent la Direction des Ressources Humaines (propriétaire métier), la Direction des Systèmes d'Information (exploitant technique), le Délégué à la Protection des Données (DPO), la Direction Générale (décideur final sur l'acceptation des risques) et les collaborateurs (personnes concernées au sens du RGPD).
+
+---
+
+## 3. Méthodologie
+
+### 3.1 Référentiel appliqué
+
+L'analyse a été conduite selon la méthodologie prescrite par la norme **ISO/IEC 27005:2022**, structurée en phases séquentielles : établissement du contexte, identification des risques, estimation des risques, évaluation des risques, traitement des risques et acceptation des risques résiduels.
+
+### 3.2 Identification des actifs
+
+Sept actifs supports et primordiaux ont été identifiés et valorisés selon les critères de **Disponibilité, Intégrité et Confidentialité (DIC)** :
+
+| # | Actif | Type | Valorisation DIC |
+|---|---|---|---|
+| A1 | Base de données RH / Paie | Informationnel | C: Critique — I: Critique — D: Élevée |
+| A2 | Application SIRH | Logiciel | C: Élevée — I: Élevée — D: Élevée |
+| A3 | Module de paie | Logiciel | C: Élevée — I: Critique — D: Critique |
+| A4 | Serveurs d'hébergement SI RH | Matériel | C: Élevée — I: Élevée — D: Élevée |
+| A5 | Interfaces bancaires et organismes sociaux | Réseau/Flux | C: Élevée — I: Critique — D: Modérée |
+| A6 | Postes de travail RH | Matériel | C: Modérée — I: Modérée — D: Modérée |
+| A7 | Documentation et procédures RH | Informationnel | C: Modérée — I: Modérée — D: Faible |
+
+### 3.3 Échelle d'estimation des risques
+
+Les risques ont été estimés selon une matrice **Vraisemblance (1 à 5) × Impact (1 à 5)**, produisant un score de risque brut sur une échelle de 1 à 25 :
+
+- **Critique (20-25) :** Traitement immédiat obligatoire
+- **Élevé (15-19) :** Traitement prioritaire requis
+- **Modéré (10-14) :** Traitement planifié recommandé
+- **Faible (<10) :** Acceptation possible ou traitement opportuniste
+
+---
+
+## 4. Résultats de l'identification des risques
+
+Douze scénarios de risque ont été identifiés par croisement des menaces, vulnérabilités et actifs concernés :
+
+| # | Scénario de risque | Actif(s) visé(s) |
+|---|---|---|
+| R01 | Exfiltration massive de données personnelles par attaque externe (injection SQL, exploitation de vulnérabilité) | A1, A2 |
+| R02 | Erreur de traitement de la paie par altération non détectée des données | A1, A3 |
+| R03 | Ransomware chiffrant la base de données RH et les sauvegardes | A1, A4 |
+| R04 | Accès non autorisé aux bulletins de paie par élévation de privilèges interne | A2, A3 |
+| R05 | Indisponibilité du SIRH en période critique de clôture de paie | A2, A3, A4 |
+| R06 | Interception des flux de données vers les banques et organismes sociaux | A5 |
+| R07 | Fuite de données RH via un poste de travail compromis (phishing ciblé) | A6, A1 |
+| R08 | Perte de données suite à une défaillance des systèmes de sauvegarde | A4, A1 |
+| R09 | Non-conformité RGPD liée à une conservation excessive des données | A1, A7 |
+| R10 | Usurpation d'identité d'un administrateur SIRH | A2, A1 |
+| R11 | Divulgation accidentelle de données RH par erreur humaine (envoi de fichier erroné) | A6, A7 |
+| R12 | Indisponibilité des interfaces tiers bloquant les virements de paie | A5 |
+
+---
+
+## 5. Résultats de l'estimation et de l'évaluation
+
+| # | Scénario | Vraisemblance | Impact | Risque brut | Niveau |
+|---|---|---|---|---|---|
+| **R01** | Exfiltration massive de données personnelles | 4 | 5 | **20** | **Critique** |
+| R02 | Erreur de traitement de la paie | 3 | 4 | **12** | Modéré |
+| R03 | Ransomware sur base de données RH | 3 | 4 | **12** | Modéré |
+| R04 | Accès non autorisé aux bulletins de paie | 3 | 4 | **12** | Modéré |
+| R05 | Indisponibilité du SIRH en période de paie | 2 | 5 | **10** | Modéré |
+| R06 | Interception des flux vers tiers | 2 | 4 | **8** | Faible |
+| R07 | Fuite via poste compromis (phishing) | 3 | 3 | **9** | Faible |
+| R08 | Perte de données par défaillance sauvegarde | 2 | 4 | **8** | Faible |
+| R09 | Non-conformité RGPD (conservation) | 2 | 4 | **8** | Faible |
+| R10 | Usurpation d'identité administrateur | 2 | 4 | **8** | Faible |
+| R11 | Divulgation accidentelle par erreur humaine | 3 | 2 | **6** | Faible |
+| R12 | Indisponibilité des interfaces tiers | 2 | 3 | **6** | Faible |
+
+**Analyse :** Le risque R01 (exfiltration massive) se distingue nettement avec un score critique de 20/25. La vraisemblance élevée (4/5) reflète l'attractivité des données RH pour les attaquants et les vulnérabilités potentielles des applications web. L'impact maximal (5/5) intègre les sanctions RGPD (jusqu'à 4 % du CA), le préjudice aux personnes concernées et l'atteinte réputationnelle. Les quatre risques modérés concernent des scénarios à impact opérationnel ou réglementaire significatif, justifiant un traitement planifié.
+
+---
+
+## 6. Plan de traitement des risques
+
+| # | Mesure de traitement | Stratégie | Priorité | Échéance | Responsable |
+|---|---|---|---|---|---|
+| M01 | Déployer un WAF (Web Application Firewall) et réaliser des tests d'intrusion semestriels sur le SIRH | Réduction | **Immédiate** | T3 2025 | DSI / RSSI |
+| M02 | Chiffrer la base de données RH au repos et en transit (AES-256 / TLS 1.3) | Réduction | **Immédiate** | T3 2025 | DSI |
+| M03 | Implémenter un double contrôle et une validation automatisée des traitements de paie | Réduction | Haute | T4 2025 | DRH / DSI |
+| M04 | Déployer une solution EDR et segmenter le réseau pour isoler le SI RH | Réduction | Haute | T4 2025 | DSI / RSSI |
+| M05 | Renforcer la gestion des habilitations par revue trimestrielle et principe du moindre privilège | Réduction | Haute | T3 2025 | DSI / DRH |
+| M06 | Mettre en place un PRA/PCA spécifique au SIRH avec RTO de 4 heures en période de paie | Réduction | Haute | T4 2025 | DSI |
+| M07 | Chiffrer systématiquement les flux vers les banques et organismes sociaux (SFTP / API sécurisées) | Réduction | Normale | T4 2025 | DSI |
+| M08 | Déployer un programme de sensibilisation anti-phishing ciblé pour le personnel RH | Réduction | Normale | T3 2025 | RSSI / DRH |
+| M09 | Mettre en œuvre la règle de sauvegarde 3-2-1 avec tests de restauration mensuels | Réduction | Haute | T3 2025 | DSI |
+| M10 | Implémenter une politique de purge automatisée conforme aux durées de conservation RGPD | Réduction | Normale | T1 2026 | DPO / DSI |
+| M11 | Déployer l'authentification multifacteur (MFA) pour tous les accès administrateur au SIRH | Réduction | **Immédiate** | T3 2025 | DSI / RSSI |
+| M12 | Mettre en place une solution DLP (Data Loss Prevention) sur les postes RH et la messagerie | Réduction | Normale | T1 2026 | DSI / RSSI |
+
+**Investissement estimé :** L'enveloppe budgétaire prévisionnelle pour la mise en œuvre de l'ensemble du plan de traitement est estimée entre 120 000 € et 180 000 €, incluant les solutions techniques, les prestations de conseil et la charge interne.
+
+---
+
+## 7. Risques résiduels et conclusion
+
+### 7.1 Évaluation des risques résiduels
+
+Après application des mesures de traitement, les risques résiduels ont été réévalués :
+
+| # | Risque brut | Risque résiduel | Niveau résiduel | Statut |
+|---|---|---|---|---|
+| R01 | 20 (Critique) | 8 (Faible) | Faible | **Accepté** |
+| R02 | 12 (Modéré) | 6 (Faible) | Faible | Accepté |
+| R03 | 12 (Modéré) | 6 (Faible) | Faible | Accepté |
+| R04 | 12 (Modéré) | 6 (Faible) | Faible | Accepté |
+| R05 | 10 (Modéré) | 5 (Faible) | Faible | Accepté |
+| R06 | 8 (Faible) | 4 (Faible) | Faible | Accepté |
+| R07 | 9 (Faible) | 4 (Faible) | Faible | Accepté |
+| R08 | 8 (Faible) | 3 (Faible) | Faible | Accepté |
+| R09 | 8 (Faible) | 4 (Faible) | Faible | Accepté |
+| R10 | 8 (Faible) | 4 (Faible) | Faible | Accepté |
+| R11 | 6 (Faible) | 3 (Faible) | Faible | Accepté |
+| R12 | 6 (Faible) | 4 (Faible) | Faible | Accepté |
+
+### 7.2 Décision d'acceptation
+
+L'ensemble des 12 risques résiduels, ramenés au niveau **Faible** après traitement, sont jugés conformes au seuil d'acceptabilité défini par l'organisation. L'acceptation formelle est conditionnée à la mise en œuvre effective et vérifiable des mesures de traitement selon le calendrier défini.
+
+### 7.3 Conclusion
+
+L'analyse révèle que le SI RH présente un niveau de risque globalement maîtrisable. Le risque critique d'exfiltration de données (R01) constitue la menace prioritaire et bénéficie d'un plan de traitement immédiat qui réduit significativement son niveau. La combinaison des mesures techniques (WAF, chiffrement, MFA, EDR) et organisationnelles (revue des habilitations, sensibilisation, PCA) permet d'atteindre un niveau de risque résiduel acceptable sur l'ensemble du périmètre.
+
+---
+
+## 8. Recommandations
+
+### 8.1 Recommandations prioritaires (0-3 mois)
+
+1. **Traitement immédiat du risque R01 :** Déployer en urgence le WAF, le chiffrement de la base de données et le MFA pour les comptes administrateurs. Ces trois mesures combinées (M01, M02, M11) réduisent le risque critique de 60 %.
+
+2. **Validation formelle par la Direction Générale :** Obtenir la signature du plan de traitement et l'allocation budgétaire associée avant fin juillet 2025.
+
+3. **Audit des habilitations SIRH :** Conduire immédiatement une revue complète des droits d'accès pour identifier et supprimer les comptes orphelins, les privilèges excessifs et les accès non justifiés.
+
+### 8.2 Recommandations à moyen terme (3-12 mois)
+
+4. **Exercice de gestion de crise :** Réaliser un exercice de simulation d'incident de type fuite de données RH pour tester les procédures de notification CNIL (72 heures) et la communication de crise.
+
+5. **Intégration au SMSI :** Inscrire le SI RH dans le périmètre du Système de Management de la Sécurité de l'Information (SMSI) si un projet de certification ISO 27001 est envisagé.
+
+6. **Contractualisation des exigences de sécurité :** Renforcer les clauses de sécurité et les annexes RGPD dans les contrats avec les éditeurs SIRH, hébergeurs et prestataires de paie (sous-traitants au sens de l'article 28 du RGPD).
+
+### 8.3 Recommandations de gouvernance continue
+
+7. **Révision annuelle de l'analyse de risques :** Conformément à l'ISO 27005, cette analyse doit être révisée a minima annuellement ou à chaque changement significatif du SI RH (migration, nouveau module, changement d'hébergeur).
+
+8. **Indicateurs de suivi (KRI) :** Mettre en place des indicateurs clés de risque : nombre de vulnérabilités critiques non corrigées, taux de couverture MFA, délai moyen de détection des incidents, taux de réussite aux tests de phishing.
+
+9. **Veille sur les menaces :** Intégrer le SI RH dans le périmètre de veille du CERT/SOC interne ou du prestataire de sécurité managée (MSSP) pour détecter les menaces émergentes spécifiques aux systèmes RH.
+
+---
+
+**Rédigé par :** [Analyste des risques — Certifié ISO 27005 Risk Manager]
+**Validé par :** [RSSI / DPO]
+**Approbation Direction :** En attente de signature
+
+*Ce rapport constitue un outil d'aide à la décision. L'acceptation des risques résiduels relève de la responsabilité de la Direction Générale conformément aux exigences de l'ISO 27005, section 10.2.*
+
+---
+*Fin du rapport — Document confidentiel — Reproduction interdite sans autorisation*

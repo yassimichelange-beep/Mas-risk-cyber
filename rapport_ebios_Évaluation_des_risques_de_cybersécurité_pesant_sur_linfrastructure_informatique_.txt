@@ -1,0 +1,397 @@
+
+
+# RAPPORT FINAL D'ÉTUDE EBIOS RISK MANAGER
+
+**Classification : Confidentiel — Direction**
+**Date d'émission : Juin 2025**
+**Référence : EBIOS-RM-2025-PILOT-001**
+**Statut : Validé**
+
+---
+
+## 1. SYNTHÈSE EXÉCUTIVE
+
+L'étude EBIOS RM menée sur l'infrastructure informatique critique de l'organisation a permis d'identifier **11 scénarios de risques opérationnels** portés par **7 sources de menace distinctes**. Les risques les plus critiques concernent les attaques par rançongiciel (cybercriminel organisé) et la déstabilisation par un État hostile, ce dernier scénario présentant un **risque résiduel jugé inacceptable** même après traitement. Le plan de traitement défini comporte des mesures de réduction pour 9 scénarios, un transfert partiel pour la menace étatique et une acceptation encadrée pour la menace hacktiviste. **La mise en œuvre immédiate des mesures de traitement est impérative**, en particulier sur les scénarios à risque résiduel inacceptable et ceux à surveiller.
+
+---
+
+## 2. PÉRIMÈTRE DE L'ÉTUDE
+
+### 2.1 Objet
+
+Évaluation des risques de cybersécurité pesant sur l'infrastructure informatique critique de l'organisation, dans le cadre d'une application pilote de la méthode EBIOS Risk Manager (conforme au guide ANSSI, octobre 2018).
+
+### 2.2 Objectifs
+
+Tester et valider l'application de la méthode EBIOS RM sur le périmètre de l'infrastructure critique, afin d'établir une cartographie des risques cyber exploitable par la direction et de définir un plan de traitement opérationnel.
+
+### 2.3 Missions critiques couvertes
+
+| Mission | Description |
+|---------|-------------|
+| Mission test | Mission critique pilote couvrant l'infrastructure informatique de l'organisation |
+
+### 2.4 Bien support principal évalué
+
+| Bien support | Critères de sécurité évalués |
+|-------------|------------------------------|
+| **VM1** | Disponibilité, Intégrité, Confidentialité, Preuve |
+
+### 2.5 Sources de menace identifiées
+
+Sept sources de menace ont été retenues à l'issue de l'analyse :
+
+- **Cybercriminel organisé** — motivation financière, capacités avancées
+- **Concurrent direct** — motivation économique et concurrentielle
+- **État hostile** — motivation géopolitique, capacités étatiques
+- **Employé malveillant interne** — motivation personnelle, accès légitimes
+- **Hacktiviste** — motivation idéologique ou politique
+- **Prestataire compromis** — vecteur d'attaque par la chaîne d'approvisionnement
+- **Cybercriminel opportuniste** — exploitation de vulnérabilités connues
+- **Erreur humaine interne** — absence de malveillance, impact accidentel
+
+---
+
+## 3. PRINCIPAUX RISQUES IDENTIFIÉS
+
+### 3.1 Événements redoutés (Atelier 1)
+
+L'analyse des événements redoutés sur le bien support VM1 a établi la hiérarchie suivante :
+
+| Événement redouté | Critère de sécurité | Gravité | Niveau |
+|-------------------|---------------------|---------|--------|
+| Perte de disponibilité de VM1 | Disponibilité | **G4 — Critique** | 🔴 |
+| Perte d'intégrité de VM1 | Intégrité | **G3 — Grave** | 🟠 |
+| Perte de confidentialité de VM1 | Confidentialité | **G3 — Grave** | 🟠 |
+| Perte de traçabilité de VM1 | Preuve | **G2 — Significatif** | 🟡 |
+
+**Analyse :** La disponibilité de VM1 constitue le critère le plus sensible (G4). Toute indisponibilité prolongée aurait un impact critique sur les missions de l'organisation. L'intégrité et la confidentialité, bien que légèrement inférieures, demeurent à un niveau grave justifiant des mesures de protection renforcées.
+
+### 3.2 Scénarios stratégiques (Atelier 3)
+
+Les scénarios stratégiques identifient les couples **source de menace / objectif visé** et leur gravité maximale :
+
+| # | Source de menace | Objectif stratégique | Gravité max. |
+|---|-----------------|---------------------|-------------|
+| SS-01 | Cybercriminel organisé | Paralyser l'infrastructure pour extorquer une rançon | **G4** 🔴 |
+| SS-02 | État hostile | Déstabiliser les opérations critiques | **G4** 🔴 |
+| SS-03 | Concurrent direct | Accéder aux informations stratégiques et confidentielles | **G3** 🟠 |
+| SS-04 | Employé malveillant interne | Compromettre l'intégrité ou voler des données sensibles | **G3** 🟠 |
+| SS-05 | Prestataire compromis | Infiltrer l'infrastructure via accès privilégiés | **G3** 🟠 |
+| SS-06 | Hacktiviste | Perturber les opérations pour message politique | **G2** 🟡 |
+| SS-07 | Cybercriminel opportuniste | Exploiter les vulnérabilités pour monétiser les données | **G2** 🟡 |
+| SS-08 | Erreur humaine interne | Compromission accidentelle des processus | **G2** 🟡 |
+
+### 3.3 Scénarios opérationnels (Atelier 4)
+
+Les scénarios opérationnels déclinent les chemins d'attaque concrets et leur vraisemblance :
+
+| # | Scénario opérationnel | Chemin d'attaque | Gravité | Vraisemblance | Niveau de risque |
+|---|----------------------|------------------|---------|--------------|-----------------|
+| SO-01 | Cybercriminel organisé → Rançongiciel | Direct | G4 | V3 | **🔴 Très élevé** |
+| SO-02 | Cybercriminel organisé → Rançongiciel | Via prestataire IT | G4 | V3 | **🔴 Très élevé** |
+| SO-03 | État hostile → Déstabilisation | Direct | G4 | V1 | **🟠 Élevé** |
+| SO-04 | État hostile → Déstabilisation | Via fournisseur équipements | G4 | V1 | **🟠 Élevé** |
+| SO-05 | Concurrent → Espionnage | Direct | G3 | V2 | **🟠 Élevé** |
+| SO-06 | Concurrent → Espionnage | Via employé interne | G3 | V2 | **🟠 Élevé** |
+| SO-07 | Employé malveillant → Compromission | Direct | G3 | V3 | **🔴 Très élevé** |
+| SO-08 | Prestataire compromis → Infiltration | Via prestataire IT | G3 | V3 | **🔴 Très élevé** |
+| SO-09 | Hacktiviste → Perturbation | Direct | G2 | V3 | **🟠 Élevé** |
+| SO-10 | Cybercriminel opportuniste → Monétisation | Direct | G2 | V4 | **🟠 Élevé** |
+| SO-11 | Erreur humaine → Compromission accidentelle | Direct | G2 | V4 | **🟠 Élevé** |
+
+### 3.4 Cartographie des risques (matrice Gravité × Vraisemblance)
+
+```
+         V1          V2          V3              V4
+G4 │ SO-03,04    │           │ SO-01,02        │               │
+   │ (Élevé)     │           │ (Très élevé)    │               │
+───┼─────────────┼───────────┼─────────────────┼───────────────┤
+G3 │             │ SO-05,06  │ SO-07,08        │               │
+   │             │ (Élevé)   │ (Très élevé)    │               │
+───┼─────────────┼───────────┼─────────────────┼───────────────┤
+G2 │             │           │ SO-09           │ SO-10,11      │
+   │             │           │ (Élevé)         │ (Élevé)       │
+───┼─────────────┼───────────┼─────────────────┼───────────────┤
+G1 │             │           │                 │               │
+───┴─────────────┴───────────┴─────────────────┴───────────────┘
+```
+
+**Constats clés :**
+- **4 scénarios en zone de risque très élevé** (SO-01, SO-02, SO-07, SO-08)
+- **7 scénarios en zone de risque élevé**
+- Aucun scénario en zone de risque faible ou modéré
+- La concentration des risques très élevés concerne principalement le rançongiciel et les menaces internes/prestataires
+
+---
+
+## 4. ÉCARTS DE CONFORMITÉ ET ACTIONS PRIORITAIRES
+
+### 4.1 État du socle de sécurité
+
+L'évaluation du socle de sécurité réalisée dans le cadre de l'Atelier 1 n'a identifié **aucun écart de conformité** par rapport aux référentiels applicables.
+
+**Interprétation :** Ce résultat indique que les mesures de sécurité de base sont en place et conformes. Toutefois, cette conformité du socle ne suffit pas à couvrir les risques identifiés dans les ateliers suivants, qui relèvent de menaces ciblées et sophistiquées nécessitant des mesures complémentaires spécifiques.
+
+### 4.2 Actions prioritaires issues de l'analyse des risques
+
+Bien qu'aucun écart du socle ne soit constaté, l'analyse des risques fait émerger les **actions prioritaires** suivantes, classées par criticité :
+
+**🔴 PRIORITÉ ABSOLUE — Risque résiduel inacceptable**
+
+| # | Action | Justification |
+|---|--------|---------------|
+| P-01 | Renforcer les mesures de défense contre les attaques étatiques au-delà du transfert assurantiel | Le risque résiduel État hostile (chemin direct) demeure **inacceptable** après traitement — nécessite des mesures complémentaires immédiates |
+| P-02 | Accélérer le partenariat opérationnel avec l'agence gouvernementale de cyberdéfense (ANSSI/CERT) | Insuffisance du transfert seul face à une menace de niveau étatique |
+
+**🟠 PRIORITÉ ÉLEVÉE — Risques résiduels à surveiller**
+
+| # | Action | Justification |
+|---|--------|---------------|
+| P-03 | Déployer la solution EDR/XDR et les sauvegardes immutables | Scénarios SO-01/SO-02 (rançongiciel) : risque résiduel à surveiller malgré le traitement |
+| P-04 | Implémenter l'architecture zero-trust pour les accès prestataires | Vecteur prestataire présent dans plusieurs scénarios critiques |
+| P-05 | Mettre en place la surveillance comportementale (UEBA) | Menace interne et vecteur employé présents dans des scénarios à surveiller |
+| P-06 | Sécuriser la chaîne d'approvisionnement (fournisseurs équipements) | État hostile via fournisseur : risque résiduel à surveiller |
+
+---
+
+## 5. PLAN DE TRAITEMENT SYNTHÉTIQUE
+
+### 5.1 Vue d'ensemble des stratégies de traitement
+
+| Stratégie | Nombre de scénarios | Proportion |
+|-----------|-------------------|------------|
+| **Réduire** | 9 | 82 % |
+| **Transférer** | 1 | 9 % |
+| **Accepter** | 1 | 9 % |
+| **Éviter** | 0 | 0 % |
+
+### 5.2 Détail du plan de traitement
+
+#### 🔴 RÉDUCTION — Scénarios de gravité G4
+
+**SO-01 : Cybercriminel organisé — Rançongiciel (chemin direct)**
+- Stratégie : **RÉDUIRE**
+- Mesures :
+  - Déploiement d'une solution EDR/XDR enterprise avec détection comportementale et réponse automatisée
+  - Segmentation réseau en micro-périmètres
+  - Mise en place de sauvegardes immutables hors ligne (offline)
+- Risque résiduel : **À surveiller** ⚠️
+- Responsable recommandé : RSSI / DSI
+- Échéance cible : T+3 mois
+
+**SO-02 : Cybercriminel organisé — Rançongiciel (via prestataire IT)**
+- Stratégie : **RÉDUIRE**
+- Mesures :
+  - Audit de sécurité obligatoire des prestataires critiques
+  - Accès zero-trust avec authentification multifacteur (MFA)
+  - Monitoring des connexions privilégiées
+  - Intégration de clauses contractuelles cybersécurité
+- Risque résiduel : **À surveiller** ⚠️
+- Responsable recommandé : RSSI / Direction Achats
+- Échéance cible : T+3 mois
+
+#### 🟠 TRANSFERT — Menace étatique
+
+**SO-03 : État hostile — Déstabilisation (chemin direct)**
+- Stratégie : **TRANSFÉRER**
+- Mesures :
+  - Souscription d'une assurance cyber risques couvrant les attaques étatiques
+  - Partenariat opérationnel avec l'agence gouvernementale de cyberdéfense
+  - Renforcement du plan de continuité d'activité (PCA)
+- Risque résiduel : **⛔ INACCEPTABLE** — mesures complémentaires requises
+- Responsable recommandé : Direction Générale / RSSI
+- Échéance cible : T+1 mois (engagement) / T+6 mois (déploiement complet)
+
+**SO-04 : État hostile — Déstabilisation (via fournisseur d'équipements)**
+- Stratégie : **RÉDUIRE**
+- Mesures :
+  - Diversification des fournisseurs critiques
+  - Tests de sécurité hardware/firmware
+  - Certification sécuritaire des équipements
+  - Surveillance réseau avancée
+- Risque résiduel : **À surveiller** ⚠️
+- Responsable recommandé : DSI / Direction Achats
+- Échéance cible : T+6 mois
+
+#### 🟠 RÉDUCTION — Scénarios de gravité G3
+
+**SO-05 : Concurrent direct — Espionnage (chemin direct)**
+- Stratégie : **RÉDUIRE**
+- Mesures :
+  - Classification et chiffrement des données sensibles
+  - Déploiement d'une solution DLP (Data Loss Prevention)
+  - Formation anti-phishing renforcée
+  - Solution de threat intelligence
+- Risque résiduel : **Acceptable** ✅
+- Responsable recommandé : RSSI
+- Échéance cible : T+4 mois
+
+**SO-06 : Concurrent direct — Espionnage (via employé interne)**
+- Stratégie : **RÉDUIRE**
+- Mesures :
+  - Programme de sensibilisation à la sécurité
+  - Déploiement UEBA (User and Entity Behavior Analytics)
+  - Contrôles d'accès basés sur les rôles (RBAC)
+  - Monitoring des activités privilégiées
+- Risque résiduel : **À surveiller** ⚠️
+- Responsable recommandé : RSSI / DRH
+- Échéance cible : T+4 mois
+
+**SO-07 : Employé malveillant — Compromission interne (chemin direct)**
+- Stratégie : **RÉDUIRE**
+- Mesures :
+  - Application stricte du principe du moindre privilège
+  - Rotation des accès
+  - Surveillance comportementale des utilisateurs
+  - Contrôles d'intégrité des données critiques
+- Risque résiduel : **Acceptable** ✅
+- Responsable recommandé : RSSI / DSI
+- Échéance cible : T+3 mois
+
+**SO-08 : Prestataire compromis — Infiltration (via prestataire IT)**
+- Stratégie : **RÉDUIRE**
+- Mesures :
+  - Architecture zero-trust pour tous les accès prestataires
+  - Bastion sécurisé (PAM)
+  - Monitoring temps réel des connexions externes
+  - Révision trimestrielle des accès
+- Risque résiduel : **Acceptable** ✅
+- Responsable recommandé : RSSI / DSI
+- Échéance cible : T+3 mois
+
+#### 🟡 TRAITEMENT — Scénarios de gravité G2
+
+**SO-09 : Hacktiviste — Perturbation (chemin direct)**
+- Stratégie : **ACCEPTER**
+- Mesures d'accompagnement :
+  - Surveillance de la réputation en ligne
+  - Plan de communication de crise
+  - Renforcement basique de la sécurité web
+- Risque résiduel : **À surveiller** ⚠️
+- Responsable recommandé : RSSI / Direction Communication
+- Échéance cible : T+2 mois
+
+**SO-10 : Cybercriminel opportuniste — Monétisation (chemin direct)**
+- Stratégie : **RÉDUIRE**
+- Mesures :
+  - Programme de gestion des vulnérabilités automatisé
+  - Patch management centralisé
+  - Tests d'intrusion trimestriels
+  - Durcissement des configurations (hardening)
+- Risque résiduel : **Acceptable** ✅
+- Responsable recommandé : DSI / Équipe sécurité opérationnelle
+- Échéance cible : T+2 mois
+
+**SO-11 : Erreur humaine — Compromission accidentelle (chemin direct)**
+- Stratégie : **RÉDUIRE**
+- Mesures :
+  - Formation continue du personnel technique
+  - Procédures de validation en double (four-eyes principle)
+  - Environnements de test séparés
+  - Système de gestion des changements ITIL
+- Risque résiduel : **Acceptable** ✅
+- Responsable recommandé : DSI / DRH
+- Échéance cible : T+2 mois
+
+### 5.3 Tableau de synthèse budgétaire indicatif
+
+| Axe de traitement | Mesures clés | Priorité | Échéance |
+|-------------------|-------------|----------|----------|
+| Anti-rançongiciel | EDR/XDR, sauvegardes immutables, segmentation | Critique | T+3 mois |
+| Défense étatique | Assurance, PCA, partenariat ANSSI | Critique | T+1 à T+6 mois |
+| Chaîne d'approvisionnement | Zero-trust prestataires, audits, bastion | Haute | T+3 mois |
+| Protection données | Classification, chiffrement, DLP | Haute | T+4 mois |
+| Menace interne | Moindre privilège, UEBA, sensibilisation | Haute | T+3 à T+4 mois |
+| Hygiène sécurité | Patch management, hardening, pentest | Moyenne | T+2 mois |
+| Facteur humain | Formations, procédures, gestion changements | Moyenne | T+2 mois |
+
+---
+
+## 6. RISQUES RÉSIDUELS ET RECOMMANDATIONS
+
+### 6.1 Cartographie des risques résiduels
+
+Après application du plan de traitement, les risques résiduels se répartissent comme suit :
+
+| Niveau de risque résiduel | Scénarios | Nombre |
+|---------------------------|-----------|--------|
+| **⛔ Inacceptable** | SO-03 : État hostile (chemin direct) | **1** |
+| **⚠️ À surveiller** | SO-01 : Rançongiciel (direct) | **5** |
+| | SO-02 : Rançongiciel (via prestataire) | |
+| | SO-04 : État hostile (via fournisseur) | |
+| | SO-06 : Espionnage (via employé) | |
+| | SO-09 : Hacktiviste (direct) | |
+| **✅ Acceptable** | SO-05, SO-07, SO-08, SO-10, SO-11 | **5** |
+
+### 6.2 Analyse du risque résiduel inacceptable
+
+**SO-03 — État hostile : Déstabilisation des opérations critiques (chemin direct)**
+
+Ce scénario demeure au niveau **inacceptable** après traitement. La stratégie de transfert (assurance + partenariat étatique + PCA) est insuffisante à elle seule pour ramener ce risque à un niveau tolérable. La gravité G4 combinée aux capacités offensives d'un acteur étatique rend ce risque structurellement difficile à réduire.
+
+**⚠️ Ce point constitue l'alerte majeure de cette étude et requiert une décision de la direction générale.**
+
+### 6.3 Recommandations
+
+#### Recommandation n°1 — URGENTE : Traiter le risque résiduel inacceptable (État hostile)
+
+La direction doit statuer sur ce risque dans un délai de **30 jours** et envisager les mesures complémentaires suivantes :
+- Mise en place d'un SOC (Security Operations Center) 24/7, éventuellement externalisé auprès d'un MSSP qualifié PDIS
+- Déploiement de solutions de type NDR (Network Detection and Response) et déception (honeypots)
+- Exercices de simulation de crise étatique (type Red Team avancée)
+- Renforcement de la résilience : infrastructure géo-redondante, basculement automatique
+- Évaluation de la possibilité de recourir à des solutions souveraines certifiées
+- Si le risque demeure inacceptable après ces mesures : envisager une **stratégie d'évitement** par modification de l'architecture ou du périmètre exposé
+
+#### Recommandation n°2 — Renforcer la surveillance des risques « à surveiller »
+
+Les 5 scénarios à surveiller doivent faire l'objet d'un suivi trimestriel avec des indicateurs mesurables :
+
+| Scénario | Indicateurs de suivi recommandés |
+|----------|--------------------------------|
+| SO-01/02 (Rançongiciel) | Nombre d'alertes EDR, taux de restauration testé, couverture des sauvegardes immutables |
+| SO-04 (État via fournisseur) | Taux de certification des équipements, nombre de fournisseurs alternatifs qualifiés |
+| SO-06 (Espionnage via employé) | Alertes UEBA, taux de complétion des formations sécurité, revues d'accès réalisées |
+| SO-09 (Hacktiviste) | Veille réputation, incidents web détectés, temps de réponse communication de crise |
+
+#### Recommandation n°3 — Gouvernance et amélioration continue
+
+- **Comité de suivi des risques cyber** : mise en place d'un comité mensuel de suivi de l'avancement du plan de traitement, avec reporting à la direction
+- **Révision annuelle de l'étude EBIOS RM** : actualiser l'analyse à chaque changement significatif du contexte (nouvelle menace, évolution du SI, incident majeur)
+- **Tableaux de bord** : déployer un dashboard de suivi des indicateurs de risque résiduel accessible à la direction
+- **Exercices de crise** : planifier au minimum 2 exercices de gestion de crise cyber par an
+
+#### Recommandation n°4 — Synergie des mesures de traitement
+
+Plusieurs mesures apparaissent dans différents scénarios et doivent être mutualisées pour optimiser les coûts et l'efficacité :
+
+| Mesure transverse | Scénarios couverts |
+|-------------------|-------------------|
+| Architecture zero-trust + MFA | SO-02, SO-06, SO-08 |
+| UEBA / Surveillance comportementale | SO-06, SO-07 |
+| Bastion sécurisé (PAM) | SO-02, SO-08 |
+| Formation / Sensibilisation | SO-05, SO-06, SO-11 |
+| Monitoring des connexions privilégiées | SO-01, SO-02, SO-07, SO-08 |
+
+#### Recommandation n°5 — Préparer l'extension du périmètre
+
+Cette étude pilote a porté sur un périmètre restreint (VM1). Il est recommandé d'**étendre l'analyse EBIOS RM** à l'ensemble des biens supports critiques de l'organisation dans les 6 mois suivant la validation de ce rapport, afin de disposer d'une vision exhaustive des risques cyber.
+
+---
+
+## CONCLUSION
+
+Cette étude EBIOS RM pilote a démontré la pertinence de la méthode pour cartographier et traiter les risques cyber de l'organisation. Sur les **11 scénarios opérationnels** identifiés, le plan de traitement proposé permet de ramener **5 risques à un niveau acceptable** et **5 à un niveau à surveiller**. Toutefois, **un risque résiduel demeure inacceptable** (menace étatique par chemin direct) et nécessite une décision de la direction et des mesures complémentaires immédiates.
+
+La mise en œuvre rapide et rigoureuse du plan de traitement, couplée à une gouvernance active du suivi des risques résiduels, est essentielle pour assurer la protection de l'infrastructure critique de l'organisation.
+
+---
+
+**Rédigé par :** Expert EBIOS RM
+**Validé par :** [Nom du valideur — à compléter]
+**Prochaine révision prévue :** T+12 mois ou sur événement déclencheur
+
+---
+
+*Ce rapport est établi conformément à la méthode EBIOS Risk Manager (ANSSI, 2018). Il constitue un outil d'aide à la décision et ne saurait se substituer au jugement de la direction sur les arbitrages de traitement des risques.*

@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+*.db
+rapport_ebios_*.txt
+rapport_iso27005_*.txt
+rapport_fair_*.txt
+.vercel/
+
+.vercel
